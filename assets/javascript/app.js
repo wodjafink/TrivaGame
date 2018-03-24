@@ -3,96 +3,114 @@ var trivia_data =
 	"questionsArray" :[
 
 		{
-		"question" : "What dinosaur name means \"fast thief?\"",
+		"questionText" : "What dinosaur name means \"fast thief?\"",
 		"answers" :[
-			{"textA" : "Pternodon", "correct": false},
-			{"textB" : "Nanotyrannus", "correct": false},
-			{"textC" : "Velociraptor", "correct": true},
-			{"textD" : "Sinocalliopteryx", "correct": false},
+			{"text" : "Pternodon", "correct": false},
+			{"text" : "Nanotyrannus", "correct": false},
+			{"text" : "Velociraptor", "correct": true},
+			{"text" : "Sinocalliopteryx", "correct": false},
 			],
 		},
 		{
-		"question" : "What dinosaur fossil was originally mistaken for a type of bison?",
+		"questionText" : "What dinosaur fossil was originally mistaken for a type of bison?",
 		"answers" :[
-			{"textA" : "Allosaurus", "correct": false},
-			{"textB" : "Stegosaurus", "correct": false},
-			{"textC" : "Buffalosaurus", "correct": false},
-			{"textD" : "Triceratops", "correct": true},
+			{"text" : "Allosaurus", "correct": false},
+			{"text" : "Stegosaurus", "correct": false},
+			{"text" : "Buffalosaurus", "correct": false},
+			{"text" : "Triceratops", "correct": true},
 			],
 		},
 		{
-		"question" : "When did dinosaurs become extinct?",
+		"questionText" : "When did dinosaurs become extinct?",
 		"answers" :[
-			{"textA" : "7 million years ago", "correct": false},
-			{"textB" : "285 million years ago", "correct": false},
-			{"textC" : "65 million years ago", "correct": true},
-			{"textD" : "2 billion years ago", "correct": false},
+			{"text" : "7 million years ago", "correct": false},
+			{"text" : "285 million years ago", "correct": false},
+			{"text" : "65 million years ago", "correct": true},
+			{"text" : "2 billion years ago", "correct": false},
 			],
 		},
 		{
-		"question" : "What were the direct ancestors of the dinosaurs?",
+		"questionText" : "What were the direct ancestors of the dinosaurs?",
 		"answers" :[
-			{"textA" : "Archosaurs", "correct": true},
-			{"textB" : "Eukaryotes", "correct": false},
-			{"textC" : "Sapheosaurs", "correct": false},
-			{"textD" : "Silesaurs", "correct": false},
+			{"text" : "Archosaurs", "correct": true},
+			{"text" : "Eukaryotes", "correct": false},
+			{"text" : "Sapheosaurs", "correct": false},
+			{"text" : "Silesaurs", "correct": false},
 			],
 		},
 		{			
-		"question" : "What was the lifespan of a T. rex?",
+		"questionText" : "What was the lifespan of a T. rex?",
 		"answers" :[
-			{"textA" : "10 to 15 years", "correct": false},
-			{"textB" : "50 to 60 years", "correct": false},
-			{"textC" : "100 to 120 years", "correct": false},
-			{"textD" : "20 to 30 years", "correct": true},
+			{"text" : "10 to 15 years", "correct": false},
+			{"text" : "50 to 60 years", "correct": false},
+			{"text" : "100 to 120 years", "correct": false},
+			{"text" : "20 to 30 years", "correct": true},
 			],
 		},
 		{
-		"question" : "The meteor that many scientists believe killed the dinosaurs struck in what modern-day country?",
+		"questionText" : "The meteor that many scientists believe killed the dinosaurs struck in what modern-day country?",
 		"answers" :[
-			{"textA" : "South Africa", "correct": false},
-			{"textB" : "Mexico", "correct": true},
-			{"textC" : "Australia", "correct": false},
-			{"textD" : "United States", "correct": false},
+			{"text" : "South Africa", "correct": false},
+			{"text" : "Mexico", "correct": true},
+			{"text" : "Australia", "correct": false},
+			{"text" : "United States", "correct": false},
 			],
 		},
 		{
-		"question" : "What dinosaur was, for many years, mistakenly called a Brontosaurus?",
+		"questionText" : "What dinosaur was, for many years, mistakenly called a Brontosaurus?",
 		"answers" :[
-			{"textA" : "Apatosaurus", "correct": true},
-			{"textB" : "Rigidosaurus", "correct": false},
-			{"textC" : "Brachiosaurus", "correct": false},
-			{"textD" : "Arcanosaurus", "correct": false},
+			{"text" : "Apatosaurus", "correct": true},
+			{"text" : "Rigidosaurus", "correct": false},
+			{"text" : "Brachiosaurus", "correct": false},
+			{"text" : "Arcanosaurus", "correct": false},
 			],
 		},
 		{
-		"question" : "Which of the following dinosaurs had a giraffe-like neck?",
+		"questionText" : "Which of the following dinosaurs had a giraffe-like neck?",
 		"answers" :[
-			{"textA" : "Allosaurus", "correct": false},
-			{"textB" : "Torvosaurus", "correct": false},
-			{"textC" : "Ankylosaurus", "correct": false},
-			{"textD" : "Brachiosaurus", "correct": true},
+			{"text" : "Allosaurus", "correct": false},
+			{"text" : "Torvosaurus", "correct": false},
+			{"text" : "Ankylosaurus", "correct": false},
+			{"text" : "Brachiosaurus", "correct": true},
 			],
 		},
 		{
-		"question" : "What is the only dinosaur lineage to survive the mass extinction event?",
+		"questionText" : "What is the only dinosaur lineage to survive the mass extinction event?",
 		"answers" :[
-			{"textA" : "Frogs", "correct": false},
-			{"textB" : "Snakes", "correct": false},
-			{"textC" : "Birds", "correct": true},
-			{"textD" : "Lizards", "correct": false},
+			{"text" : "Frogs", "correct": false},
+			{"text" : "Snakes", "correct": false},
+			{"text" : "Birds", "correct": true},
+			{"text" : "Lizards", "correct": false},
 			],
 		},
 		{
-		"question" : "Which dinosaur had fifteen horns?",
+		"questionText" : "Which dinosaur had fifteen horns?",
 		"answers" :[
-			{"textA" : "Pachyrhinosaurus", "correct": false},
-			{"textB" : "Styracosaurus", "correct": false},
-			{"textC" : "Diabloceratops", "correct": false},
-			{"textD" : "Kosmoceratops", "correct": true},
+			{"text" : "Pachyrhinosaurus", "correct": false},
+			{"text" : "Styracosaurus", "correct": false},
+			{"text" : "Diabloceratops", "correct": false},
+			{"text" : "Kosmoceratops", "correct": true},
 			]
 		}
 	]
+}
+
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+}
+
+function displayTriviaQuestion(question)
+{
+	$("#question").text(question.questionText);
+	$("#answer-1").text(question.answers[0].text)
+	$("#answer-2").text(question.answers[1].text)
+	$("#answer-3").text(question.answers[2].text)
+	$("#answer-4").text(question.answers[3].text)
 }
 
 $(document).ready(function () {
@@ -100,16 +118,19 @@ $(document).ready(function () {
 	console.log(trivia_data.questionsArray.length)
 
 	console.log(trivia_data.questionsArray[0].question)
-	// $.getJSON( "trivia_data.json", function( data ) {
-	//   var items = [];
-	//   $.each( data, function( key, val ) {
-	//     items.push( "<li id='" + key + "'>" + val + "</li>" );
-	//   });
-	 
-	//   $( "<ul/>", {
-	//     "class": "my-new-list",
-	//     html: items.join( "" )
-	//   }).appendTo( "body" );
-	// });
+
+	// Array to track random indexes; this shuffles the order of the questions
+	var randomizeArray = [];
+
+	for (var i = 0; i < trivia_data.questionsArray.length; i++)
+	{
+		randomizeArray.push(i);
+	}
+
+	shuffleArray(randomizeArray);
+
+	console.log(randomizeArray)
+
+	displayTriviaQuestion(trivia_data.questionsArray[randomizeArray[0]])
 
 })
