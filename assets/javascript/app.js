@@ -1,7 +1,6 @@
 var trivia_data = 
 { 
 	"questionsArray" :[
-
 		{
 		"questionText" : "What dinosaur name means \"fast thief?\"",
 		"answers" :[
@@ -94,6 +93,56 @@ var trivia_data =
 		}
 	]
 }
+// Variable switchQuestion will hold the setInterval when we start the Trivia
+var intervalId;
+
+// Array to track random indexes; this shuffles the order of the questions
+var randomizeArray = [];
+
+// Count will keep track of how many questions we've ran through
+var count = 0;
+
+// This timer object will count down in between questions
+var countDownTimer = {
+	time: 0,
+	reset: function() {
+		countDownTimer.time = 0;
+	},
+	// start takes in time to count in seconds, calculates millis for you
+	start: function(newTime) {
+		clearInterval(intervalId);
+		countDownTimer.time = newTime;
+		// This will trigger the event to go to the next question
+		setTimeout(countDownTimer.expire, (newTime+1) * 1000)
+		// This will show the 'count down'
+		intervalId = setInterval(countDownTimer.count, 1000);
+		// Good to do in the beginning to show the user they have 20 seconds
+		countDownTimer.display();
+	},
+	expire: function() {
+		nextQuestion();
+	},
+	count: function() {
+		countDownTimer.time--;
+		countDownTimer.display();
+	},
+	display: function(){
+		$("#timer-area").text("You have " + countDownTimer.time + " seconds left");
+	}
+}
+
+function nextQuestion(){
+	count++;
+
+	displayTriviaQuestion();
+
+	if (count === trivia_data.questionsArray.length)
+		count = 0;
+}
+
+// function startTrivia(){
+// 	switchQuestion = setInterval(nextQuestion, 5000);
+// }
 
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
@@ -104,23 +153,17 @@ function shuffleArray(array) {
     }
 }
 
-function displayTriviaQuestion(question)
-{
+function displayTriviaQuestion(){
+	var question = trivia_data.questionsArray[randomizeArray[count]];
 	$("#question").text(question.questionText);
 	$("#answer-1").text(question.answers[0].text)
 	$("#answer-2").text(question.answers[1].text)
 	$("#answer-3").text(question.answers[2].text)
 	$("#answer-4").text(question.answers[3].text)
+	countDownTimer.start(20);
 }
 
 $(document).ready(function () {
-
-	console.log(trivia_data.questionsArray.length)
-
-	console.log(trivia_data.questionsArray[0].question)
-
-	// Array to track random indexes; this shuffles the order of the questions
-	var randomizeArray = [];
 
 	for (var i = 0; i < trivia_data.questionsArray.length; i++)
 	{
@@ -129,8 +172,8 @@ $(document).ready(function () {
 
 	shuffleArray(randomizeArray);
 
-	console.log(randomizeArray)
-
-	displayTriviaQuestion(trivia_data.questionsArray[randomizeArray[0]])
+	// startTrivia();
+	countDownTimer.start(20);
+	displayTriviaQuestion()
 
 })
