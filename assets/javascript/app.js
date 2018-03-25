@@ -165,6 +165,14 @@ function displayTriviaQuestion(){
 
 $(document).ready(function () {
 
+  var url = "https://raw.githubusercontent.com/wodjafink/TriviaGame/master/assets/javascript/trivia_data.json"
+
+    $.ajax({
+        url: url,
+      }).done(function(response) {
+        console.log(response)
+      });
+
 	for (var i = 0; i < trivia_data.questionsArray.length; i++)
 	{
 		randomizeArray.push(i);
