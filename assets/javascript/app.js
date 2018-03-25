@@ -93,14 +93,19 @@ var trivia_data =
 		}
 	]
 }
-// Variable switchQuestion will hold the setInterval when we start the Trivia
-var intervalId;
 
 // Array to track random indexes; this shuffles the order of the questions
 var randomizeArray = [];
 
+// Keeps track of the user's score
+var score = 0;
+
+// Variable switchQuestion will hold the setInterval when we start the Trivia
+var intervalId;
 // Count will keep track of how many questions we've ran through
 var count = 0;
+
+var question;
 
 // This timer object will count down in between questions
 var countDownTimer = {
@@ -140,10 +145,6 @@ function nextQuestion(){
 		count = 0;
 }
 
-// function startTrivia(){
-// 	switchQuestion = setInterval(nextQuestion, 5000);
-// }
-
 function shuffleArray(array) {
     for (var i = array.length - 1; i > 0; i--) {
         var j = Math.floor(Math.random() * (i + 1));
@@ -154,7 +155,7 @@ function shuffleArray(array) {
 }
 
 function displayTriviaQuestion(){
-	var question = trivia_data.questionsArray[randomizeArray[count]];
+	question = trivia_data.questionsArray[randomizeArray[count]];
 	$("#question").text(question.questionText);
 	$("#answer-1").text(question.answers[0].text)
 	$("#answer-2").text(question.answers[1].text)
@@ -165,13 +166,18 @@ function displayTriviaQuestion(){
 
 $(document).ready(function () {
 
-  var url = "https://raw.githubusercontent.com/wodjafink/TriviaGame/master/assets/javascript/trivia_data.json"
+	score = 0;
 
-    $.ajax({
-        url: url,
-      }).done(function(response) {
-        console.log(response)
-      });
+  // var url = "https://raw.githubusercontent.com/wodjafink/TriviaGame/master/assets/javascript/trivia_data.json"
+
+  //   $.ajax({
+  //       url: url,
+  //     }).done(function(response) {
+  //       console.log(response)
+  //       trivia_data = JSON.parse(response);
+  //     });
+
+      // trivia_data = JSON.parse
 
 	for (var i = 0; i < trivia_data.questionsArray.length; i++)
 	{
@@ -184,4 +190,25 @@ $(document).ready(function () {
 	countDownTimer.start(20);
 	displayTriviaQuestion()
 
+	// highlight based on which one the user selects
+	$('#answer-section').children().mouseover(function(e){
+	    $(".hover").removeClass("hover");     
+	    $(this).addClass("hover");
+	}).mouseout(function(e) {
+	    $(this).removeClass("hover");
+	});
+
+	$('#answer-section').on('click', '*', function(){
+		var clickedId = $(this).attr('id');
+		// Maybe a better way, going to cut out the substring from the ID to get an index
+		var answerIndex = clickedId.substring(clickedId.length - 1);
+		if (question.answers[answerIndex-1].correct){
+			console.log("WIN!")
+		}
+		else{
+			console.log("LOSE!")
+		}
+	})
+
 })
+
