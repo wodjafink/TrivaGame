@@ -102,30 +102,57 @@ var score = 0;
 
 // Variable switchQuestion will hold the setInterval when we start the Trivia
 var intervalId;
+
+var trackTimeout;
+
 // Count will keep track of how many questions we've ran through
 var count = 0;
 
 var question;
 
+var inAnswerState = false;
+var haveCorrectAnswer = false;
+
 // This timer object will count down in between questions
 var countDownTimer = {
 	time: 0,
+	timerRunning: false,
 	reset: function() {
+		countDownTimer.timerRunning = false;
 		countDownTimer.time = 0;
 	},
 	// start takes in time to count in seconds, calculates millis for you
 	start: function(newTime) {
-		clearInterval(intervalId);
-		countDownTimer.time = newTime;
-		// This will trigger the event to go to the next question
-		setTimeout(countDownTimer.expire, (newTime+1) * 1000)
-		// This will show the 'count down'
-		intervalId = setInterval(countDownTimer.count, 1000);
-		// Good to do in the beginning to show the user they have 20 seconds
-		countDownTimer.display();
+		if (!countDownTimer.timerRunning)
+		{
+			clearTimeout(trackTimeout);
+			countDownTimer.timerRunning = true;
+			clearInterval(intervalId);
+			countDownTimer.time = newTime;
+			// This will trigger the event to go to the next question
+			console.log("Start count down at " + (newTime+1));
+			trackTimeout = setTimeout(countDownTimer.expire, (newTime+1) * 1000)
+			// This will show the 'count down'
+			intervalId = setInterval(countDownTimer.count, 1000);
+			// Good to do in the beginning to show the user they have 20 seconds
+			countDownTimer.display();
+		}
 	},
 	expire: function() {
-		nextQuestion();
+		console.log("Expire, answer state is " + inAnswerState);
+		if (!inAnswerState){
+			clearScreen();
+			clearTimeout(trackTimeout);
+			countDownTimer.timerRunning = false;
+			displayOutOfTimeScreen();
+		}
+		else{
+			clearTimeout(trackTimeout);
+			countDownTimer.timerRunning = false;
+			clearScreen();
+			nextQuestion();
+		}
+
 	},
 	count: function() {
 		countDownTimer.time--;
@@ -136,8 +163,29 @@ var countDownTimer = {
 	}
 }
 
+function clearScreen(){
+	// $("#answer-section").empty();
+	clearAnswerOptions();
+	$("#response").empty();
+	$("#list-correct").empty();
+	$("#list-user-answer").empty();
+}
+
+function clearAnswerOptions(){
+	$("#answer-1").empty();
+	$("#answer-2").empty();
+	$("#answer-3").empty();
+	$("#answer-4").empty();
+}
+
 function nextQuestion(){
+
 	count++;
+
+	// Clear both flags here because we are going on to the next question
+	inAnswerState = false;
+	haveCorrectAnswer = false;
+	console.log("Going to next question " + count + " answer state is " + inAnswerState);
 
 	displayTriviaQuestion();
 
@@ -156,12 +204,70 @@ function shuffleArray(array) {
 
 function displayTriviaQuestion(){
 	question = trivia_data.questionsArray[randomizeArray[count]];
+
+	console.log("Display question " + count);
 	$("#question").text(question.questionText);
+
 	$("#answer-1").text(question.answers[0].text)
 	$("#answer-2").text(question.answers[1].text)
 	$("#answer-3").text(question.answers[2].text)
 	$("#answer-4").text(question.answers[3].text)
+		// $("#answer-section").empty();
 	countDownTimer.start(20);
+}
+
+function displayOutOfTimeScreen(){
+
+	inAnswerState = true;
+
+	console.log("Displaying out of time screen, answer state is " + inAnswerState);
+	$("#response").html('<h1>Ran out of time...</h1>');
+
+	$("#list-correct").text("Correct answer : ");
+	question.answers.forEach(function(answer){
+		if (answer.correct === true)
+		{
+			$("#list-correct").append(answer.text);
+		}
+	})
+	countDownTimer.start(5);
+
+}
+
+function displayWinScreen(answerIndex){
+	score++;
+
+	console.log("Displaying win screen");
+
+	inAnswerState = true;
+	// $("#answer-section").empty();
+	clearAnswerOptions();
+
+	$("#response").html('<h1>Correct!!</h1>');
+	$("#list-correct").text("Correct answer :");
+	$("#list-correct").append(question.answers[answerIndex].text);
+	countDownTimer.start(5);
+}
+
+function displayLoseScreen(answerIndex){
+	console.log("Displaying lose screen");
+	inAnswerState = true;
+	var brAdd = $("<br>");
+	// $("#answer-section").empty();
+	clearAnswerOptions();
+
+	$("#response").html('<h1>Incorrect!!</h1>');
+	$("#list-user-answer").text("Your answer : ");
+	$("#list-user-answer").append(question.answers[answerIndex].text);
+	$("#list-correct").text("Correct answer : ");
+	question.answers.forEach(function(answer){
+		if (answer.correct === true)
+		{
+			$("#list-correct").append(answer.text);
+		}
+	})
+	countDownTimer.start(5);
+
 }
 
 $(document).ready(function () {
@@ -199,14 +305,15 @@ $(document).ready(function () {
 	});
 
 	$('#answer-section').on('click', '*', function(){
+		countDownTimer.reset();
 		var clickedId = $(this).attr('id');
 		// Maybe a better way, going to cut out the substring from the ID to get an index
 		var answerIndex = clickedId.substring(clickedId.length - 1);
 		if (question.answers[answerIndex-1].correct){
-			console.log("WIN!")
+			displayWinScreen(answerIndex-1);
 		}
 		else{
-			console.log("LOSE!")
+			displayLoseScreen(answerIndex-1);
 		}
 	})
 
