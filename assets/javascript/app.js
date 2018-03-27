@@ -113,12 +113,18 @@ var question;
 var inAnswerState = false;
 var haveCorrectAnswer = false;
 
+// For game mode, questionTimeout should be 20, answerTimeout should be 3
+var questionTimeout = 5;
+var answerTimeout = 3;
+
 // This timer object will count down in between questions
 var countDownTimer = {
 	time: 0,
 	timerRunning: false,
 	reset: function() {
 		countDownTimer.timerRunning = false;
+		clearTimeout(trackTimeout);
+		clearInterval(intervalId);
 		countDownTimer.time = 0;
 	},
 	// start takes in time to count in seconds, calculates millis for you
@@ -187,10 +193,17 @@ function nextQuestion(){
 	haveCorrectAnswer = false;
 	console.log("Going to next question " + count + " answer state is " + inAnswerState);
 
-	displayTriviaQuestion();
-
 	if (count === trivia_data.questionsArray.length)
-		count = 0;
+	{
+		clearScreen();
+		$("#timer-area").empty();
+		$("#question").empty();
+		countDownTimer.reset();
+		displayResults();
+	}
+	else{
+		displayTriviaQuestion();
+	}
 }
 
 function shuffleArray(array) {
@@ -213,7 +226,7 @@ function displayTriviaQuestion(){
 	$("#answer-3").text(question.answers[2].text)
 	$("#answer-4").text(question.answers[3].text)
 		// $("#answer-section").empty();
-	countDownTimer.start(20);
+	countDownTimer.start(questionTimeout);
 }
 
 function displayOutOfTimeScreen(){
@@ -230,7 +243,7 @@ function displayOutOfTimeScreen(){
 			$("#list-correct").append(answer.text);
 		}
 	})
-	countDownTimer.start(5);
+	countDownTimer.start(answerTimeout);
 
 }
 
@@ -246,7 +259,7 @@ function displayWinScreen(answerIndex){
 	$("#response").html('<h1>Correct!!</h1>');
 	$("#list-correct").text("Correct answer :");
 	$("#list-correct").append(question.answers[answerIndex].text);
-	countDownTimer.start(5);
+	countDownTimer.start(answerTimeout);
 }
 
 function displayLoseScreen(answerIndex){
@@ -266,8 +279,13 @@ function displayLoseScreen(answerIndex){
 			$("#list-correct").append(answer.text);
 		}
 	})
-	countDownTimer.start(5);
+	countDownTimer.start(answerTimeout);
 
+}
+
+function displayResults(){
+	console.log("Game should stop here");
+	$("#list-user-answer").text("You got " + score + " questions correct");
 }
 
 $(document).ready(function () {
@@ -293,7 +311,7 @@ $(document).ready(function () {
 	shuffleArray(randomizeArray);
 
 	// startTrivia();
-	countDownTimer.start(20);
+	countDownTimer.start(questionTimeout);
 	displayTriviaQuestion()
 
 	// highlight based on which one the user selects
